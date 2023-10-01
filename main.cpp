@@ -13,6 +13,8 @@
 #define GCC_PATH "/bin/gcc"
 #define GPP_PATH "/bin/g++"
 
+#define HELP_STRING "AutoGCC/G++ Interactive shell for C/C++ compilers to test simple code lines(for example, printf format arguments)"
+
 static void
 readline(char *buffer, int buflen)
 {
@@ -99,20 +101,21 @@ int main(int argc, char **argv)
     char compiler[50] = DEFAULT_COMPILER_PATH;
     char commands_buffer[10000];
     char exit_command[] = "ag_ex";
-    char* base_source_head =
-        "#include <stdio.h>"
-        "using namespace std;"
-        "int main(){";
-    char* base_source_bottom =
-        "return 0;"
-        "}";
+    // char* base_source_head =
+    //     "#include <stdio.h>"
+    //     "using namespace std;"
+    //     "int main(){";
+    // char* base_source_bottom =
+    //     "return 0;"
+    //     "}";
+
 
     char *workspace_path = initWorkSpace();
     initscr();
     raw();
     keypad(stdscr, TRUE);
 
-    printw("AutoGCC with compiler: %s\nProject workspace path: %s\nMode: 0", compiler, workspace_path);
+    printw("AutoGCC with compiler: %s\nProject workspace path: %s\nMode: 0\n", compiler, workspace_path);
     refresh();
     while (strcmp(command, exit_command) != 0)
     {
@@ -122,13 +125,19 @@ int main(int argc, char **argv)
         printw(">>> %s\n", command);
         // Check for internal AutoGCC command (prefix: ag_)
         if (3 <= strlen(command) && ( strncmp("ag_", command, 3) == 0 )) {
-            if (!strcmp(command, "ag_sw_gcc")){
+            if (strncmp("ag_sw_gcc", command, 9) == 0){
                 strcpy(compiler, GCC_PATH);
                 printw("Switched to gcc: %s\n", compiler);
             }
-            else if (!strcmp(command, "ag_sw_g++")){
+            else if (strncmp("ag_sw_g++", command, 9) == 0){
                 strcpy(compiler, GPP_PATH);
                 printw("Switched to g++: %s\n", compiler);
+            }
+            else if (strncmp("ag_help", command, 7) == 0){
+                printw("%s\n", HELP_STRING);
+            }
+            else {
+                printw("No such internal command!\n");
             }
         } else { 
             // Execute compiler command
