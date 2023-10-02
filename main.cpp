@@ -95,6 +95,11 @@ char *initWorkSpace()
     return path;
 }
 
+void cleanUpWorkspace(char* workspace_name){
+    
+
+}
+
 int main(int argc, char **argv)
 {
     char command[MAX_LEN] = "1";
