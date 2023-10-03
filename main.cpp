@@ -106,15 +106,6 @@ int main(int argc, char **argv)
     char compiler[50] = DEFAULT_COMPILER_PATH;
     char commands_buffer[10000];
     char exit_command[] = "ag_ex";
-    // char* base_source_head =
-    //     "#include <stdio.h>"
-    //     "using namespace std;"
-    //     "int main(){";
-    // char* base_source_bottom =
-    //     "return 0;"
-    //     "}";
-
-
     char *workspace_path = initWorkSpace();
     initscr();
     raw();
